@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* next-themes toggles a `dark` class on <html>; make Tailwind's dark: follow it. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Brand palette from tis.edu.in: crimson #B90124, teal #007A83, gold #C09D59. */
+:root {
+  --bg: #fbf8f3;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #5f5f5f;
+  --line: rgb(28 28 28 / 0.1);
+  --brand: #b90124;
+  --brand-strong: #8e011c;
+  --brand-text: #b90124;
+  --teal: #007a83;
+  --gold: #c09d59;
+}
+
+.dark {
+  --bg: #100d0e;
+  --surface: #1b1718;
+  --ink: #f4efe9;
+  --muted: #a9a29d;
+  --line: rgb(244 239 233 / 0.12);
+  --brand: #b90124;
+  --brand-strong: #d4163a;
+  /* Lighter crimson so accent text keeps AA contrast on the dark background. */
+  --brand-text: #ff6b81;
+  --teal: #4fc3cb;
+  --gold: #d8b878;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-text: var(--brand-text);
+  --color-teal: var(--teal);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-barlow);
+  --font-display: var(--font-fraunces);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee 40s linear infinite reverse;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Applied for one toggle only (see ThemeToggle) so colours fade instead of snapping. */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+  }
+}
